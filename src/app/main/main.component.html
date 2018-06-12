@@ -1,3 +1,11 @@
-<p>
-  main works!
-</p>
+<div>
+    main works!
+</div>
+
+<button *ngIf="!(currentUser$ | async)" (click)="signIn()">Sign in</button>
+<div *ngIf="(currentUser$ | async) as firebaseUser" (click)="signOut()">{{firebaseUser.displayName}}</div>
+<div>
+    <button *ngIf="(currentUser$ | async)" (click)="signOut()">Sign Out</button>
+</div>
+
+
