@@ -1,14 +1,17 @@
 import {Component, OnInit} from "@angular/core";
-import {Router} from "@angular/router";
-import {LoginService} from "../login.service";
-import {Observable} from "rxjs";
-import * as firebase from "firebase";
+import {Router}            from "@angular/router";
+import {LoginService}      from "../login.service";
+import {Observable}        from "rxjs";
+import * as firebase       from "firebase";
 
-@Component({
-               selector:    "app-main",
-               templateUrl: "./main.component.html",
-               styleUrls:   ["./main.component.css"]
-           })
+
+@Component(
+    {
+        selector:    "app-main",
+        templateUrl: "./main.component.html",
+        styleUrls:   ["./main.component.css"]
+    }
+)
 export class MainComponent implements OnInit
 {
 
@@ -23,19 +26,14 @@ export class MainComponent implements OnInit
     }
 
 
-    public ngOnInit(): void
-    {
-    }
-
     public get currentUser$(): Observable<firebase.User | null>
     {
         return this._loginService.currentUser$;
     }
 
 
-    public signIn(): void
+    public ngOnInit(): void
     {
-        this._loginService.login();
     }
 
 

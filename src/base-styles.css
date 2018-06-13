@@ -1,0 +1,46 @@
+.fill-parent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.flex-item-dynamic {
+    flex: 1 1 auto;
+}
+
+.flex-item-static {
+    flex: 0 0 auto;
+}
+
+.scroll-y {
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    flex-basis: 0;
+}
+
+.scroll-x {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    flex-basis: 0;
+}
+
+.scroll-xy {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    flex-basis: 0;
+}

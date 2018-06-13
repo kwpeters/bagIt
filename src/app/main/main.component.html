@@ -1,11 +1,27 @@
-<div>
-    main works!
-</div>
+<!--
+It is assumed that the user is logged in any time this component is visible,
+because it is being protected by a route guard.
+-->
 
-<button *ngIf="!(currentUser$ | async)" (click)="signIn()">Sign in</button>
-<div *ngIf="(currentUser$ | async) as firebaseUser" (click)="signOut()">{{firebaseUser.displayName}}</div>
-<div>
-    <button *ngIf="(currentUser$ | async)" (click)="signOut()">Sign Out</button>
-</div>
+<mat-toolbar color="primary">
 
+    <a mat-button routerLink="/welcome"><h1>BagIt</h1></a>
 
+    <span class="flex-item-dynamic"></span>
+    <span>
+        <button mat-button [matMenuTriggerFor]="appMenu">
+            <span *ngIf="(currentUser$ | async) as firebaseUser">{{firebaseUser.displayName}}</span>
+            <mat-icon>keyboard_arrow_down</mat-icon>
+        </button>
+    </span>
+</mat-toolbar>
+
+<!--
+The menu that will be displayed by the above toolbar button.
+-->
+<mat-menu #appMenu="matMenu" [overlapTrigger]="false">
+    <button mat-menu-item (click)="signOut()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Sign Out</span>
+    </button>
+</mat-menu>
