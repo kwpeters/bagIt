@@ -41,16 +41,11 @@ export class LoginService
     }
 
 
-    public login(): Promise<firebase.auth.UserCredential> {
-        const googleAuthProvider: firebase.auth.GoogleAuthProvider  =  new firebase.auth.GoogleAuthProvider();
+    public login(): Promise<firebase.User | void | null> {
+        const googleAuthProvider =  new firebase.auth.GoogleAuthProvider();
         return this._firebaseAuth.signInWithPopup(googleAuthProvider)
-        // .then((result) => {
-        //     console.log('\n\n----- result -----');
-        //     console.log(JSON.stringify(result, undefined, 4) + '\n\n');
-        // })
-        .catch((err) => {
-            console.log("\n\n----- Error logging in -----");
-            console.log(JSON.stringify(err, undefined, 4) + "\n\n");
+        .then((userCred: firebase.auth.UserCredential) => {
+            return userCred.user;
         });
     }
 
