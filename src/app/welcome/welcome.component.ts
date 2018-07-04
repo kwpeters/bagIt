@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {LoginService} from "../login.service";
+import {ModelUserService} from "../model-user.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -10,13 +10,13 @@ import {Router} from "@angular/router";
 export class WelcomeComponent implements OnInit
 {
 
-    private _loginService: LoginService;
+    private _modelUserService: ModelUserService;
     private _router: Router;
 
 
-    constructor(loginService: LoginService, router: Router)
+    constructor(modelUserService: ModelUserService, router: Router)
     {
-        this._loginService = loginService;
+        this._modelUserService = modelUserService;
         this._router = router;
     }
 
@@ -28,10 +28,10 @@ export class WelcomeComponent implements OnInit
 
     public getStarted(): void
     {
-        this._loginService.getUser()
+        this._modelUserService.getUser()
         .then((user) => {
             if (!user) {
-                return this._loginService.login()
+                return this._modelUserService.login()
                 .then(() => {});
             }
         })

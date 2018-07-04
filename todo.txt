@@ -1,0 +1,6 @@
+TO DO
+
+Features to add to this app
+
+- [ ] Create a connected/disconnected indicator:
+      https://firebase.google.com/docs/database/web/offline-capabilities

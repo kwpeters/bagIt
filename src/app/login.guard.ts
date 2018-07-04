@@ -1,17 +1,17 @@
 import {Injectable} from "@angular/core";
 import {CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
 import {Observable} from "rxjs";
-import {LoginService} from "./login.service";
+import {ModelUserService} from "./model-user.service";
 
 @Injectable({providedIn: "root"})
 export class LoginGuard implements CanActivate
 {
-    private _loginService: LoginService;
+    private _modelUserService: ModelUserService;
 
 
-    public constructor(router: Router, loginService: LoginService)
+    public constructor(router: Router, modelUserService: ModelUserService)
     {
-        this._loginService = loginService;
+        this._modelUserService = modelUserService;
     }
 
     public canActivate(
@@ -19,7 +19,7 @@ export class LoginGuard implements CanActivate
         state: RouterStateSnapshot
     ): Observable<boolean> | Promise<boolean> | boolean
     {
-        return this._loginService.getUser()
+        return this._modelUserService.getUser()
         .then((firebaseUser) => {
             return !!firebaseUser;
         });

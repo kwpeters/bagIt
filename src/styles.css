@@ -7,3 +7,11 @@
 * {
     box-sizing: border-box;
 }
+
+
+/*
+ * The following keeps the annoying Firefox rectangle from appearing.
+ * https://stackoverflow.com/questions/71074/how-to-remove-firefoxs-dotted-outline-on-buttons-as-well-as-links
+ */
+:focus {outline:none;}
+::-moz-focus-inner {border:0;}

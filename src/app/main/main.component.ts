@@ -1,34 +1,32 @@
 import {Component, OnInit} from "@angular/core";
 import {Router}            from "@angular/router";
-import {LoginService}      from "../login.service";
 import {Observable}        from "rxjs";
 import * as firebase       from "firebase";
+import {ModelUserService}  from "../model-user.service";
 
 
-@Component(
-    {
-        selector:    "app-main",
-        templateUrl: "./main.component.html",
-        styleUrls:   ["./main.component.css"]
-    }
-)
+@Component({
+    selector:    "app-main",
+    templateUrl: "./main.component.html",
+    styleUrls:   ["./main.component.css"]
+})
 export class MainComponent implements OnInit
 {
 
     private _router: Router;
-    private _loginService: LoginService;
+    private _modelUserService: ModelUserService;
 
 
-    constructor(router: Router, loginService: LoginService)
+    constructor(router: Router, modelUserService: ModelUserService)
     {
         this._router       = router;
-        this._loginService = loginService;
+        this._modelUserService = modelUserService;
     }
 
 
     public get currentUser$(): Observable<firebase.User | null>
     {
-        return this._loginService.currentUser$;
+        return this._modelUserService.currentUser$;
     }
 
 
@@ -39,7 +37,7 @@ export class MainComponent implements OnInit
 
     public signOut(): void
     {
-        this._loginService.logout();
+        this._modelUserService.logout();
         this._router.navigate([""]);
     }
 
