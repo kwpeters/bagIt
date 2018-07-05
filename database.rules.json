@@ -1,6 +1,16 @@
 {
-  "rules": {
-    ".read": "auth != null",
-    ".write": "auth != null"
-  }
+    "rules": {
+        "users": {
+            "$uid": {
+                ".read": "$uid === auth.uid",
+                ".write": "$uid === auth.uid"
+            }
+        },
+        "dbs": {
+            "$dbid": {
+                ".read": "root.child('users').child(auth.uid).child('dbs').hasChild($dbid)",
+                ".write": "root.child('users').child(auth.uid).child('dbs').hasChild($dbid)"
+            }
+        }
+    }
 }
