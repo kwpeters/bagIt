@@ -19,7 +19,7 @@ export class MainComponent implements OnInit
 
     constructor(router: Router, modelUserService: ModelUserService)
     {
-        this._router       = router;
+        this._router           = router;
         this._modelUserService = modelUserService;
     }
 
@@ -27,6 +27,12 @@ export class MainComponent implements OnInit
     public get currentUser$(): Observable<firebase.User | null>
     {
         return this._modelUserService.currentUser$;
+    }
+
+
+    public get connectedText(): string
+    {
+        return "hello world";
     }
 
 

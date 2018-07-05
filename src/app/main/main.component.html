@@ -8,6 +8,9 @@ because it is being protected by a route guard.
     <a mat-button routerLink="/welcome"><h1>BagIt</h1></a>
 
     <span class="flex-item-dynamic"></span>
+
+    <span class="flex-item-static">{{connectedText}}</span>
+
     <span>
         <button mat-button [matMenuTriggerFor]="appMenu">
             <span *ngIf="(currentUser$ | async) as firebaseUser">{{firebaseUser.displayName}}</span>
