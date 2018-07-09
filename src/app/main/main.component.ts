@@ -30,9 +30,9 @@ export class MainComponent implements OnInit
     }
 
 
-    public get connectedText(): string
+    public get isConnected$(): Observable<boolean>
     {
-        return "hello world";
+        return this._modelUserService.isConnected$;
     }
 
 

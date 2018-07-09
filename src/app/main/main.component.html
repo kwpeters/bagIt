@@ -9,11 +9,20 @@ because it is being protected by a route guard.
 
     <span class="flex-item-dynamic"></span>
 
-    <span class="flex-item-static">{{connectedText}}</span>
+    <mat-icon *ngIf="(isConnected$ | async)" class="flex-item-static">cloud</mat-icon>
+    <mat-icon *ngIf="!(isConnected$ | async)" class="flex-item-static">cloud_off</mat-icon>
 
     <span>
         <button mat-button [matMenuTriggerFor]="appMenu">
-            <span *ngIf="(currentUser$ | async) as firebaseUser">{{firebaseUser.displayName}}</span>
+            <img
+                *ngIf="(currentUser$ | async) as firebaseUser" src="{{firebaseUser.photoURL}}"
+                class="avatar-thumbnail"
+            />
+            <!--
+            <span *ngIf="(currentUser$ | async) as firebaseUser">
+                {{firebaseUser.displayName}}
+            </span>
+            -->
             <mat-icon>keyboard_arrow_down</mat-icon>
         </button>
     </span>

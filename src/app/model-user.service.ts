@@ -1,8 +1,8 @@
-import {Injectable}                  from "@angular/core";
-import {BehaviorSubject, Observable} from "rxjs/index";
-import {auth, User}                  from "firebase/app";
-import * as _                        from "lodash";
-import {BagitModelService}           from "./bagit-model.service";
+import {Injectable}                                from "@angular/core";
+import {BehaviorSubject, Observable}               from "rxjs/index";
+import {auth, database, User}                      from "firebase/app";
+import * as _                                      from "lodash";
+import {BagitModelService}                         from "./bagit-model.service";
 
 
 // import {BagitModelService} from "./bagit-model.service";
@@ -22,6 +22,7 @@ export class ModelUserService
     private _resolveAuthInitializedPromise!: () => void;
     private _model: BagitModelService;
 
+    private _isConnected$: BehaviorSubject<boolean>;
 
     // endregion
 
@@ -40,14 +41,28 @@ export class ModelUserService
             this._resolveAuthInitializedPromise = resolve;
 
         });
-        this._firebaseAuth           = auth();
+        this._firebaseAuth = auth();
         this._firebaseAuth.onAuthStateChanged(this.onAuthStateChanged.bind(this));
+
+        this._isConnected$ = new BehaviorSubject<boolean>(false);
+        const connectedRef = database().ref(".info/connected");
+        connectedRef.on("value", (snap: database.DataSnapshot | null) => {
+            if (snap) {
+                this._isConnected$.next(snap.val());
+            }
+        });
     }
 
 
     public get currentUser$(): Observable<User | null>
     {
         return this._currentUser$.asObservable();
+    }
+
+
+    public get isConnected$(): Observable<boolean>
+    {
+        return this._isConnected$.asObservable();
     }
 
 
