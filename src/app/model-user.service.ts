@@ -167,6 +167,7 @@ export class ModelUserService
     {
         this._curFirebaseUser = user;
 
+        // If there is a current user, make sure it exists in the model.
         (user ? this._model.upsertUser(user) : Promise.resolve())
         .then(() => {
             this._currentUser$.next(user);

@@ -1,19 +1,10 @@
 import {Injectable}  from "@angular/core";
 import * as firebase from "firebase";
-import * as uuid from "uuid";
 
 
 @Injectable({providedIn: "root"})
 export class BagitModelService
 {
-
-    // TODO: Get rid of this in favor of just getting a database-generated key.
-    // https://firebase.google.com/docs/database/web/read-and-write
-    private static _generateUid(): string
-    {
-        return `${Date.now()}-${uuid.v4()}`;
-    }
-
 
     // region Data Members
     private _refRoot: firebase.database.Reference;
@@ -53,20 +44,25 @@ export class BagitModelService
      * @param description - A description of the new database
      * @return A Promise that is resolved once the operation completes
      */
-    public createDatabase(user: firebase.User, dbName: string, description: string): Promise<void>
+    public createDatabase(user: firebase.User, dbName: string, description: string): PromiseLike<void>
     {
-        // TODO: Do a single update() here as explained in this doc.
-        // https://firebase.google.com/docs/database/web/read-and-write
+        // Push an entry into the user's list of dbs.
+        return this._refRoot.child("users").child(user.uid).child("dbs").push(1)
+        .then((refDbs: firebase.database.Reference) => {
 
-        const dbid = BagitModelService._generateUid();
+            const dbid = refDbs.key;
+            if (typeof dbid !== "string") {
+                throw new Error("Could not create new db entry for user.");
+            }
 
-        return this._refRoot.child("users").child(user.uid).child("dbs").child(dbid).set(1)
-        .then(() => {
-            return this._refRoot.child("dbs")
+            // Create the main database entry.
+            return this._refRoot
+            .child("dbs")
             .child(dbid)
             .set({name: dbName, description: description});
         })
-        .then(() => {});
+        .then(() => {
+        });
     }
 
 }
